@@ -28,24 +28,6 @@ export type RawDataset = {
   skillAttributes: RawRecord[];
 };
 
-export type CrawlOptions = {
-  rootDir: string;
-  fullRefresh: boolean;
-  detailDelayMs: number;
-  concurrency: number;
-  timeoutMs: number;
-  maxRetries: number;
-};
-
-export const defaultCrawlOptions = (rootDir: string): CrawlOptions => ({
-  rootDir,
-  fullRefresh: false,
-  detailDelayMs: 1000,
-  concurrency: 1,
-  timeoutMs: 20_000,
-  maxRetries: 3,
-});
-
 export type CachedResponse = {
   url: string;
   status: number;

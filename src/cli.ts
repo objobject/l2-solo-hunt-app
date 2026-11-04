@@ -6,16 +6,16 @@ import {
   verifyLayer2Data,
 } from './data-maintenance.js';
 import { diffDatasets, humanDiff } from './diff.js';
-import { scrape } from './engine.js';
-import { defaultCrawlOptions } from './types.js';
+import { scrape } from './modules/scraper/engine.js';
 import { emptyDataset, readSnapshot } from './storage.js';
+import {getDefaultCrawlOptions} from "./modules/scraper/scraper-utils.js";
 
 const root = resolve(import.meta.dirname, '..');
 const command = process.argv[2];
 
 async function main(): Promise<void> {
   if (command === 'scrape') {
-    const options = defaultCrawlOptions(root);
+    const options = getDefaultCrawlOptions(root);
     options.fullRefresh = process.argv.includes('--full-refresh');
     const delay = process.argv.find((value) => value.startsWith('--detail-delay-ms='));
     const concurrency = process.argv.find((value) => value.startsWith('--concurrency='));

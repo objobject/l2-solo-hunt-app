@@ -1,9 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { scrape } from './engine.js';
-import { defaultCrawlOptions, type HttpClient, type SourceResponse } from './types.js';
+import { scrape } from './modules/scraper/engine.js';
+import { type HttpClient, type SourceResponse } from './types.js';
 import { readSnapshot } from './storage.js';
+import {getDefaultCrawlOptions} from "./modules/scraper/scraper-utils.js";
 
 const fixture = (name: string): string => readFileSync(resolve('src/__fixtures__', name), 'utf8');
 const root = resolve('tmp_rovodev_engine_test');
@@ -51,7 +52,7 @@ describe('offline crawl integration', () => {
   test('publishes a complete staged snapshot, reuses cache, and supports full refresh', async () => {
     const waits: number[] = [];
     const firstCalls: string[] = [];
-    const options = defaultCrawlOptions(root);
+    const options = getDefaultCrawlOptions(root);
     const first = await scrape(options, fixtureClient(firstCalls), async (milliseconds) => {
       waits.push(milliseconds);
     });
@@ -76,7 +77,7 @@ describe('offline crawl integration', () => {
   });
 
   test('does not replace a prior canonical snapshot when staged crawling fails', async () => {
-    const options = defaultCrawlOptions(root);
+    const options = getDefaultCrawlOptions(root);
     await scrape(options, fixtureClient([]), async () => undefined);
     const original = readFileSync(resolve(root, 'data/raw/monsters.csv'), 'utf8');
     await expect(
@@ -96,7 +97,7 @@ describe('offline crawl integration', () => {
         ? ((retried = true), response(url, '', 429, { 'retry-after': '2' }))
         : base(url);
     await scrape(
-      { ...defaultCrawlOptions(root), fullRefresh: true },
+      { ...getDefaultCrawlOptions(root), fullRefresh: true },
       client,
       async (milliseconds) => {
         waits.push(milliseconds);

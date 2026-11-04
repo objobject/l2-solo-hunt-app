@@ -2,14 +2,13 @@ import { createHash } from 'node:crypto';
 import {
   C1_BASE_URL,
   CrawlError,
-  type CrawlOptions,
   type HttpClient,
   type RawDataset,
   type RawRecord,
   type Sleeper,
   type SourceResponse,
-} from './types.js';
-import { assertC1Url, requireC1Allowed, retry, retryAfterMilliseconds } from './policy.js';
+} from '../../types.js';
+import { assertC1Url, requireC1Allowed, retry, retryAfterMilliseconds } from '../../policy.js';
 import {
   parseClassSkills,
   parseClassUrls,
@@ -18,9 +17,10 @@ import {
   parseMonsterDetail,
   parseMonsterListing,
   parseSkillDetail,
-} from './parsers.js';
-import { assertValidDataset, TABLE_COLUMNS } from './schema.js';
-import { createManifest, publish, readCache, stagedDiff, writeCache } from './storage.js';
+} from '../../parsers.js';
+import { assertValidDataset, TABLE_COLUMNS } from '../../schema.js';
+import { createManifest, publish, readCache, stagedDiff, writeCache } from '../../storage.js';
+import { type CrawlOptions} from "./scraper-utils.js";
 
 const USER_AGENT =
   'L2RebornLegacyLayer1Scraper/0.1 (+https://github.com/l2-reborn-legacy-solo-hunt-calc; contact: project-maintainer@example.invalid)';
