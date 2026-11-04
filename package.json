@@ -19,7 +19,8 @@
     "generate": "tsx src/cli.ts generate",
     "verify-data": "tsx src/cli.ts verify-data",
     "generated-data:check": "tsx src/cli.ts generated-data:check",
-    "diff-data": "tsx src/cli.ts diff-data"
+    "diff-data": "tsx src/cli.ts diff-data",
+    "push-check": "$npm_execpath run test && $npm_execpath run lint && $npm_execpath run build"
   },
   "dependencies": {
     "cheerio": "1.1.2"
