@@ -8,7 +8,7 @@ import {
   type Sleeper,
   type SourceResponse,
 } from '../../types.js';
-import { assertC1Url, requireC1Allowed, retry, retryAfterMilliseconds } from '../../policy.js';
+import { assertC1Url, requireC1Allowed, retry, retryAfterMilliseconds } from './policy.js';
 import {
   parseClassSkills,
   parseClassUrls,
@@ -17,9 +17,9 @@ import {
   parseMonsterDetail,
   parseMonsterListing,
   parseSkillDetail,
-} from '../../parsers.js';
-import { assertValidDataset, TABLE_COLUMNS } from '../../schema.js';
-import { createManifest, publish, readCache, stagedDiff, writeCache } from '../../storage.js';
+} from './parsers.js';
+import { assertValidDataset, TABLE_COLUMNS } from '../data-maintenance/schema.js';
+import { createManifest, publish, readCache, stagedDiff, writeCache } from '../data-maintenance/storage.js';
 import { type CrawlOptions} from "./scraper-utils.js";
 
 const USER_AGENT =

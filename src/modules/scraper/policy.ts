@@ -1,4 +1,4 @@
-import { C1_BASE_URL, CrawlError, type Sleeper } from './types.js';
+import { C1_BASE_URL, CrawlError, type Sleeper } from '../../types.js';
 
 const SOURCE = new URL(C1_BASE_URL);
 

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { RawRecord } from './types.js';
+import type { RawRecord } from '../../types.js';
 
 export function csvEscape(value: string | null): string {
   if (value === null) return '';

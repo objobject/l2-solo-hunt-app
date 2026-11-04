@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import { assertC1Url } from './policy.js';
-import { CrawlError, type RawRecord } from './types.js';
+import { CrawlError, type RawRecord } from '../../types.js';
 
 function jsonValueAt(source: string, position: number): unknown {
   const opening = source[position];

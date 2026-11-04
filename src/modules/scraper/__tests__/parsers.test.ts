@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { CrawlError } from './types.js';
+import { CrawlError } from '../../../types.js';
 import {
   extractJsonVariable,
   parseClassSkills,
@@ -9,7 +9,7 @@ import {
   parseMonsterDetail,
   parseMonsterListing,
   parseSkillDetail,
-} from './parsers.js';
+} from '../parsers.js';
 
 const fixture = (name: string): string => readFileSync(resolve('src/__fixtures__', name), 'utf8');
 const monsterUrl = 'https://lineage2wiki.org/c1/monster/1/test-monster/';

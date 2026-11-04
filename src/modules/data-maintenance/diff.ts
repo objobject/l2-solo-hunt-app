@@ -1,5 +1,5 @@
 import { fingerprint } from './csv.js';
-import type { ChangeReport, RawDataset, RawRecord } from './types.js';
+import type { ChangeReport, RawDataset, RawRecord } from '../../types.js';
 
 const identity: Record<keyof RawDataset, string[]> = {
   monsters: ['npc_id'],

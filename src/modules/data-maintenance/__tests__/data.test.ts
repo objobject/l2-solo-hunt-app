@@ -1,7 +1,7 @@
-import { createManifest, emptyDataset } from './storage.js';
-import { csvEscape, parseCsv, toCsv } from './csv.js';
-import { diffDatasets, humanDiff } from './diff.js';
-import { validateDataset } from './schema.js';
+import { createManifest, emptyDataset } from '../storage.js';
+import { csvEscape, parseCsv, toCsv } from '../csv.js';
+import { diffDatasets, humanDiff } from '../diff.js';
+import { validateDataset } from '../schema.js';
 
 const source = 'https://lineage2wiki.org/c1/monster/1/test/';
 

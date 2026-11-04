@@ -1,5 +1,5 @@
-import { assertC1Url } from './policy.js';
-import { ValidationError, type RawDataset, type RawRecord } from './types.js';
+import { assertC1Url } from '../scraper/policy.js';
+import { ValidationError, type RawDataset, type RawRecord } from '../../types.js';
 
 export const TABLE_COLUMNS: Record<keyof RawDataset, string[]> = {
   monsters: [

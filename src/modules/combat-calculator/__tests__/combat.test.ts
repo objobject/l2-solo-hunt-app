@@ -5,7 +5,7 @@ import {
   type CombatValidationIssue,
   type MagicalDamageInput,
   type PhysicalDamageInput,
-} from './combat.js';
+} from '../combat.js';
 
 const physical = (overrides: Partial<PhysicalDamageInput> = {}): PhysicalDamageInput => ({
   physicalAttack: 100,

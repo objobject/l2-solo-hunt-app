@@ -1,4 +1,4 @@
-import type { RawRecord } from './types.js';
+import type { RawRecord } from '../../types.js';
 
 /** Layer 2 normalized CSV schemas. Numeric values use the source's game units:
  * levels/counts/stats are points, item prices are adena, probabilities are fractions [0,1],

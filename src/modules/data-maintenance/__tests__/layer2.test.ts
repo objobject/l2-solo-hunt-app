@@ -1,12 +1,12 @@
 import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
-import { generateData, generatedDataDrift, generatedFiles } from './generate.js';
-import { normalizeDataset, searchKey, validateNormalizedDataset } from './normalize.js';
-import { createNormalizedManifest } from './normalized-storage.js';
-import { applyOverrides, type Override } from './overrides.js';
-import { DataValidationError } from './normalized-schema.js';
-import { emptyDataset } from './storage.js';
-import type { RawDataset } from './types.js';
+import { generateData, generatedDataDrift, generatedFiles } from '../generate.js';
+import { normalizeDataset, searchKey, validateNormalizedDataset } from '../normalize.js';
+import { createNormalizedManifest } from '../normalized-storage.js';
+import { applyOverrides, type Override } from '../overrides.js';
+import { DataValidationError } from '../normalized-schema.js';
+import { emptyDataset } from '../storage.js';
+import type { RawDataset } from '../../../types.js';
 
 const url = 'https://lineage2wiki.org/c1/monster/1/test/';
 

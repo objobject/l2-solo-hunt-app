@@ -12,7 +12,7 @@ import {
   type ChangeReport,
   type RawDataset,
   type SnapshotManifest,
-} from './types.js';
+} from '../../types.js';
 
 const rawDir = (root: string) => join(root, 'data', 'raw');
 const cacheDir = (root: string) => join(root, 'data', '.cache', 'responses');

@@ -4,10 +4,10 @@ import {
   generateNormalizedData,
   normalizeData,
   verifyLayer2Data,
-} from './data-maintenance.js';
-import { diffDatasets, humanDiff } from './diff.js';
+} from './modules/data-maintenance/data-maintenance.js';
+import { diffDatasets, humanDiff } from './modules/data-maintenance/diff.js';
 import { scrape } from './modules/scraper/engine.js';
-import { emptyDataset, readSnapshot } from './storage.js';
+import { emptyDataset, readSnapshot } from './modules/data-maintenance/storage.js';
 import {getDefaultCrawlOptions} from "./modules/scraper/scraper-utils.js";
 
 const root = resolve(import.meta.dirname, '..');

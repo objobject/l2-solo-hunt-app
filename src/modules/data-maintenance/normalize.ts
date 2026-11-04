@@ -1,4 +1,4 @@
-import type { RawDataset, RawRecord } from './types.js';
+import type { RawDataset, RawRecord } from '../../types.js';
 import {
   DataValidationError,
   NORMALIZED_ENUMS,

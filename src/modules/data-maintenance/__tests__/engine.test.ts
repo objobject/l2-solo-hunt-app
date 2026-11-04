@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { scrape } from './modules/scraper/engine.js';
-import { type HttpClient, type SourceResponse } from './types.js';
-import { readSnapshot } from './storage.js';
-import {getDefaultCrawlOptions} from "./modules/scraper/scraper-utils.js";
+import { scrape } from '../../scraper/engine.js';
+import { type HttpClient, type SourceResponse } from '../../../types.js';
+import { readSnapshot } from '../storage.js';
+import {getDefaultCrawlOptions} from "../../scraper/scraper-utils.js";
 
 const fixture = (name: string): string => readFileSync(resolve('src/__fixtures__', name), 'utf8');
 const root = resolve('tmp_rovodev_engine_test');

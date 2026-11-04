@@ -1,11 +1,11 @@
-import { CrawlError } from './types.js';
+import { CrawlError } from '../../../types.js';
 import {
   assertC1Url,
   parseRobots,
   requireC1Allowed,
   retry,
   retryAfterMilliseconds,
-} from './policy.js';
+} from '../policy.js';
 
 describe('crawl policy', () => {
   test('honors robots allow and disallow rules', () => {
