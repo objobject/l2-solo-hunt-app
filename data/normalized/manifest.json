@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2",
+  "rawDatasetFingerprint": "0b38b1ec57a563aec44be2d48a994139512e9f74c038d1b4092b658e1720b1d6",
+  "overridesFingerprint": "674c2afeee848d1bd364033472a23ef06a06eebfa2fede24ae09bffaa69ccee5",
+  "datasetFingerprint": "6cf4708e5ba3c75dc0ad16d819a6a1e30fc4725b3e789b2ffb6ffb4a3e1d20ee",
+  "counts": {
+    "monsters": 1477,
+    "items": 1535,
+    "skills": 420,
+    "skill_levels": 2882,
+    "skill_attributes": 14318,
+    "monster_drops": 5385,
+    "monster_spoils": 1152,
+    "monster_skills": 1455,
+    "monster_locations": 13752
+  }
+}

@@ -1,0 +1,8 @@
+field,required,description
+entity_type,yes,Normalized table name receiving the correction
+stable_id,yes,Stable numeric primary or composite numeric key documented by the normalized schema
+field,yes,Existing normalized CSV field except identity fields
+original_value,yes,Exact pre-override normalized value; use NULL for a null value
+replacement_value,yes,Replacement normalized value; use NULL for a null value
+reason,yes,Why the source value is semantically incorrect
+approval_note,yes,Product-owner approval reference or note
