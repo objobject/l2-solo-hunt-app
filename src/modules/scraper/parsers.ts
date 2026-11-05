@@ -241,7 +241,12 @@ export function parseMonsterDetail(
       throw new Error(`Raw key '${rawKey}' is unrecognized.`)
     }
 
-    monster[keyMap[rawKey]] = value;
+    if (keyMap[rawKey] === 'speed') {
+      // Speed value is a string built of two components, e.g "45 / 125" - we are interested with right-hand side, which is max speed
+      monster[keyMap[rawKey]] = value.split(' / ')[1] as string;
+    } else {
+      monster[keyMap[rawKey]] = value;
+    }
   });
 
   return {
