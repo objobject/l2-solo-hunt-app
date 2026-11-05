@@ -1,11 +1,4 @@
-added monsters: 1477
-added items: 1535
-added skills: 420
-changedRelationships monsterDrops: 5385
-changedRelationships monsterSpoils: 1152
-changedRelationships monsterSkills: 1455
-changedRelationships monsterLocations: 13752
-changedRelationships skillLevels: 2882
-changedRelationships skillAttributes: 14318
+changed monsters: 1477
+changed items: 1535
 duplicate IDs: 0
 orphaned references: 0
