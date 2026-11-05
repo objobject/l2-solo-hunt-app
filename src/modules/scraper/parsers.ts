@@ -123,6 +123,9 @@ function relationshipRows(
   return rows;
 }
 
+// WARNING: this function mutates `monster` raw record passed into this function!
+// This happens because computed combat stats are on detail level, and it doesn't make sense to make combat stats another relation table
+// This is why mutating here is the 2nd most elegant approach to the problem, next to actually doing proper refactor of clanker code XD
 export function parseMonsterDetail(
   html: string,
   monster: RawRecord,
@@ -134,6 +137,7 @@ export function parseMonsterDetail(
   locations: RawRecord[];
   skillSources: RawRecord[];
 } {
+  console.log(`Parsing monster detail at ${sourceUrl}...`)
   assertC1Url(sourceUrl);
   const monsterId = monster.npc_id;
   if (!monsterId) throw new CrawlError('Monster without npc_id');
@@ -189,6 +193,57 @@ export function parseMonsterDetail(
         source_url: new URL(href, sourceUrl).toString(),
       });
   });
+
+  $('div.monster_row.row_red .quest5,div.monster_row.row_blue .quest5').each((_index, element) => {
+    const rawKey = $(element).find('div.txt_monster_3').text();
+    const value = $(element).find('div.text_item2').text();
+
+    const keyMap: RawRecord = {
+      'HP Reg.:': 'hp_reg',
+      'HP:': 'hp',
+      'MP Reg.:': 'mp_reg',
+      'MP:': 'mp',
+    }
+
+    if (keyMap[rawKey] == undefined) {
+      throw new Error(`Raw key '${rawKey}' is unrecognized.`)
+    }
+
+    monster[keyMap[rawKey]] = value;
+  });
+
+  $('div.monster_row2').each((_index, element) => {
+    const rawKey = $(element).find('div.txt_monster_3').text();
+    const value = $(element).find('div.text_item2').text();
+
+    const keyMap: RawRecord = {
+      'P.Atk.:': 'p_atk',
+      'P.Def.:': 'p_def',
+      'Accuracy:': 'accuracy',
+      'Critical:': 'critical',
+      'Atk.Speed:': 'atk_speed',
+      'Atk. type:': 'atk_type',
+      'M.Atk.:': 'm_atk',
+      'M.Def.:': 'm_def',
+      'Evasion:': 'evasion',
+      'Speed:': 'speed',
+      'Cast.Speed:': 'cast_speed',
+      'Atk. Range:': 'atk_range',
+      'STR': 'str',
+      'DEX': 'dex',
+      'CON': 'con',
+      'INT': 'int',
+      'WIT': 'wit',
+      'MEN': 'men'
+    }
+
+    if (keyMap[rawKey] == undefined) {
+      throw new Error(`Raw key '${rawKey}' is unrecognized.`)
+    }
+
+    monster[keyMap[rawKey]] = value;
+  });
+
   return {
     drops: relationshipRows(html, 'drops', monsterId, sourceUrl),
     spoils: relationshipRows(html, 'spoils', monsterId, sourceUrl),
@@ -199,6 +254,7 @@ export function parseMonsterDetail(
 }
 
 export function parseItemDetail(html: string, sourceUrl: string): RawRecord {
+  console.log(`Parsing item detail at ${sourceUrl}...`)
   assertC1Url(sourceUrl);
   const payload = extractJsonVariable(html, 'item');
   if (!payload || typeof payload !== 'object' || Array.isArray(payload))
@@ -212,6 +268,7 @@ export function parseItemDetail(html: string, sourceUrl: string): RawRecord {
 }
 
 export function parseClassUrls(html: string, sourceUrl: string): string[] {
+  console.log(`Parsing class urls at ${sourceUrl}...`)
   assertC1Url(sourceUrl);
   const $ = cheerio.load(html);
   const urls = new Set<string>();
@@ -224,6 +281,7 @@ export function parseClassUrls(html: string, sourceUrl: string): string[] {
 }
 
 export function parseClassSkills(html: string, sourceUrl: string): RawRecord[] {
+  console.log(`Parsing class skills at ${sourceUrl}...`)
   assertC1Url(sourceUrl);
   const $ = cheerio.load(html);
   const records: RawRecord[] = [];
@@ -251,6 +309,7 @@ export function parseSkillDetail(
   skillId: string,
   sourceUrl: string,
 ): { name: string; levels: RawRecord[]; attributes: RawRecord[] } {
+  console.log(`Parsing skill detail at ${sourceUrl}...`)
   assertC1Url(sourceUrl);
   if (!/^\d+$/.test(skillId)) throw new CrawlError(`Invalid skill_id ${skillId}`);
   const $ = cheerio.load(html);
