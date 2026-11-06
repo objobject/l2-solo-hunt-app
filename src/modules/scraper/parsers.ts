@@ -194,7 +194,7 @@ export function parseMonsterDetail(
       });
   });
 
-  $('div.monster_row.row_red .quest5,div.monster_row.row_blue .quest5').each((_index, element) => {
+  $('div.monster_row.row_red .quest5,div.monster_row.row_blue .quest5,div.monster_row.row_white .quest5').each((_index, element) => {
     const rawKey = $(element).find('div.txt_monster_3').text();
     const value = $(element).find('div.text_item2').text();
 
@@ -203,6 +203,8 @@ export function parseMonsterDetail(
       'HP:': 'hp',
       'MP Reg.:': 'mp_reg',
       'MP:': 'mp',
+      'Exp:': 'exp',
+      'Sp:': 'sp'
     }
 
     if (keyMap[rawKey] == undefined) {

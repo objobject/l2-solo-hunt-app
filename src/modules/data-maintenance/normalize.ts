@@ -151,8 +151,8 @@ function monster(raw: RawRecord): RawRecord {
     monster_type: enumValue(raw.type, NORMALIZED_ENUMS.monsterType, 'monsters', id, 'type'),
     ...numericRow(raw, 'monsters', id, [
       ['level', 'level', 'integer'],
-      ['xp_reward', 'acquire_exp_rate', 'decimal'],
-      ['sp_reward', 'acquire_sp', 'decimal'],
+      ['xp_reward', 'exp', 'decimal'],
+      ['sp_reward', 'sp', 'decimal'],
       ['hp', 'org_hp', 'integer'],
       ['hp_regen', 'hp_reg', 'decimal'],
       ['mp', 'mp', 'integer'],

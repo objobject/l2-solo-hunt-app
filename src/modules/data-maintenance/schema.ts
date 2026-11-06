@@ -16,6 +16,8 @@ export const TABLE_COLUMNS: Record<keyof RawDataset, string[]> = {
       'hp_reg',
       'mp',
       'mp_reg',
+      'exp',
+      'sp',
     'p_atk',
     'p_def',
     'accuracy',

@@ -21,6 +21,8 @@ function fixture(): RawDataset {
     level: '10',
     acquire_exp_rate: '1.234500',
     acquire_sp: '2',
+    exp: '382',
+    sp: '15',
     org_hp: '100',
     dex: '1',
     str: '2',
@@ -129,7 +131,7 @@ describe('Layer 2 normalization', () => {
       name: '  Café Wolf  ',
       name_search_key: 'cafe wolf',
       title: null,
-      xp_reward: '1.234500',
+      xp_reward: '382',
     });
     expect(data.items[0]).toMatchObject({ description: null, hit_modifier: '-3', is_drop: 'true' });
     expect(data.monster_drops[0]).toMatchObject({
