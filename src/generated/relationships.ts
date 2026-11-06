@@ -1,7 +1,7 @@
 // GENERATED FILE. DO NOT EDIT. Run npm run generate.
 export const schemaVersion = "2" as const;
 export const schemaFingerprint = "455ff4b3b38dae1fd5cfc9f596041ed7732f98977f636aa1479eda34ad0bf0f8" as const;
-export const datasetFingerprint = "55ffeb38356409583912cc722f63473d9b843dbf08332cccdb03dffc8dbd7b12" as const;
+export const datasetFingerprint = "a6e9d384714c654777e018d865a6984991a55dbc3085a7a0fbf67230a5546730" as const;
 
 export const monsterDrops = [
   {

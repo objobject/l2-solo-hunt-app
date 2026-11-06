@@ -9,6 +9,7 @@ export type PhysicalShotType = 'none' | 'soulshot';
 export type MagicalShotType = 'none' | 'spiritshot' | 'blessed_spiritshot';
 
 export type PhysicalDamageInput = Readonly<{
+  playerLevel: number;
   physicalAttack: number;
   skillPower: number;
   monsterPhysicalDefense: number;
@@ -146,24 +147,20 @@ function magicalShotMultiplier(shotType: MagicalShotType): 1 | 2 | 4 {
  * later-layer concern.
  */
 export function calculatePhysicalDamage(input: PhysicalDamageInput): PhysicalDamageResult {
-  const values = requireInputRecord(input, 'physical_damage');
   const issues: CombatValidationIssue[] = [];
-  validateNonNegativeNumber(issues, 'physical_damage', 'physicalAttack', values.physicalAttack);
-  validateNonNegativeNumber(issues, 'physical_damage', 'skillPower', values.skillPower);
+  validateNonNegativeNumber(issues, 'physical_damage', 'physicalAttack', input.physicalAttack);
+  validateNonNegativeNumber(issues, 'physical_damage', 'skillPower', input.skillPower);
   validatePositiveDefense(
     issues,
     'physical_damage',
     'monsterPhysicalDefense',
-    values.monsterPhysicalDefense,
+      input.monsterPhysicalDefense,
   );
-  validateShotType(issues, 'physical_damage', values.shotType, ['none', 'soulshot']);
+  validateShotType(issues, 'physical_damage', input.shotType, ['none', 'soulshot']);
   throwIfInvalid(issues);
 
-  const multiplier = physicalShotMultiplier(values.shotType as PhysicalShotType);
   return {
-    damage:
-      (70 * ((values.physicalAttack as number) + (values.skillPower as number)) * multiplier) /
-      (values.monsterPhysicalDefense as number),
+    damage: 70 * input.physicalAttack * (input.shotType === 'soulshot' ? 2 : 1) * input.skillPower / Math.max(1, input.monsterPhysicalDefense),
   };
 }
 
