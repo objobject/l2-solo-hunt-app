@@ -8,28 +8,38 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "scrape": "tsx src/cli.ts scrape",
-    "normalize": "tsx src/cli.ts normalize",
-    "generate": "tsx src/cli.ts generate",
-    "verify-data": "tsx src/cli.ts verify-data",
-    "generated-data:check": "tsx src/cli.ts generated-data:check",
-    "diff-data": "tsx src/cli.ts diff-data",
+    "scrape": "tsx src/cli/cli.ts scrape",
+    "normalize": "tsx src/cli/cli.ts normalize",
+    "generate": "tsx src/cli/cli.ts generate",
+    "verify-data": "tsx src/cli/cli.ts verify-data",
+    "generated-data:check": "tsx src/cli/cli.ts generated-data:check",
+    "diff-data": "tsx src/cli/cli.ts diff-data",
     "push-check": "$npm_execpath run test && $npm_execpath run lint && $npm_execpath run build",
+    "dev": "vite",
+    "preview": "vite preview",
     "combat-test": "tsx src/modules/combat-calculator/combat-calculator.ts"
   },
   "dependencies": {
-    "cheerio": "1.1.2"
+    "cheerio": "1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "9.39.1",
     "@types/jest": "30.0.0",
     "@types/node": "24.10.1",
+    "@types/react-leaflet": "^2.8.3",
+    "@vitejs/plugin-react": "^6.3.0",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
     "globals": "16.5.0",
@@ -38,6 +48,7 @@
     "ts-jest": "29.4.5",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.2"
+    "typescript-eslint": "8.46.2",
+    "vite": "^8.3.8"
   }
 }

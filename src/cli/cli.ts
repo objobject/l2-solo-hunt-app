@@ -4,11 +4,11 @@ import {
   generateNormalizedData,
   normalizeData,
   verifyLayer2Data,
-} from './modules/data-maintenance/data-maintenance.js';
-import { diffDatasets, humanDiff } from './modules/data-maintenance/diff.js';
-import { scrape } from './modules/scraper/engine.js';
-import { emptyDataset, readSnapshot } from './modules/data-maintenance/storage.js';
-import {getDefaultCrawlOptions} from "./modules/scraper/scraper-utils.js";
+} from '../modules/data-maintenance/data-maintenance.js';
+import { diffDatasets, humanDiff } from '../modules/data-maintenance/diff.js';
+import { scrape } from '../modules/scraper/engine.js';
+import { emptyDataset, readSnapshot } from '../modules/data-maintenance/storage.js';
+import {getDefaultCrawlOptions} from "../modules/scraper/scraper-utils.js";
 
 const root = resolve(import.meta.dirname, '..');
 const command = process.argv[2];
