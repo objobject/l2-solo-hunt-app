@@ -8,7 +8,7 @@ import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
-import overlayImage from './static/world-map.jpg';
+import worldMap from '../static/world-map.jpg';
 import {LOCATION_DATA} from "../data/locationData";
 
 const modules = import.meta.glob('../static/tiles/*.png', { eager: true });
@@ -157,6 +157,7 @@ export const Map = () => {
     const [showSpawns, setShowSpawns] = useState<boolean>(true);
     const [showTerritories, setShowTerritories] = useState<boolean>(true);
     const [selectedTerritories, setSelectedTerritories] = useState<Set<string>>(new Set());
+    const [viewMode, setViewMode] = useState<'map' | 'satellite'>('map');
     const locationData = buildLocationData();
 
     const renderedMarkers = useMemo(() => {
@@ -219,11 +220,11 @@ export const Map = () => {
             maxZoom={6}
         >
             <ImageOverlay
-                url={"/world-map.jpg"}
+                url={worldMap}
                 bounds={mapBounds}
                 zIndex={10}
             />
-            {tiles.map((tile) => (
+            {viewMode === 'satellite' && tiles.map((tile) => (
                 <ImageOverlay zIndex={11} key={tile.key} url={tile.url} bounds={tile.bounds} />
             ))}
             {
@@ -250,7 +251,7 @@ export const Map = () => {
                     />
                 ))
             }
-            <MapSelectionController locations={LOCATION_DATA} selectedTerritories={selectedTerritories} setSelectedTerritories={setSelectedTerritories} />
+            <MapSelectionController locations={LOCATION_DATA} selectedTerritories={selectedTerritories} setSelectedTerritories={setSelectedTerritories} setViewMode={setViewMode}/>
         </MapContainer>
     )
 }
@@ -292,7 +293,7 @@ const TerritoryPolygon = React.memo(function TerritoryPolygon({ loc, isSelected,
     );
 });
 
-function MapSelectionController({ locations, selectedTerritories, setSelectedTerritories }) {
+function MapSelectionController({ locations, selectedTerritories, setSelectedTerritories, setViewMode }) {
     const map = useMap();
     const hasInitialZoomed = useRef(false);
 
@@ -302,6 +303,7 @@ function MapSelectionController({ locations, selectedTerritories, setSelectedTer
 
         const params = new URLSearchParams(window.location.search);
         const selectedParam = params.get('selected');
+        const viewModeParam = params.get('viewMode');
 
         if (selectedParam) {
             const idsFromUrl = selectedParam.split(',').filter(Boolean);
@@ -323,6 +325,10 @@ function MapSelectionController({ locations, selectedTerritories, setSelectedTer
                     });
                 }
             }
+        }
+
+        if (viewModeParam && ['map', 'satellite'].some(it => it === viewModeParam)) {
+            setViewMode(viewModeParam)
         }
 
         hasInitialZoomed.current = true;
