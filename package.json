@@ -26,16 +26,24 @@
     "combat-test": "tsx src/modules/combat-calculator/combat-calculator.ts"
   },
   "dependencies": {
+    "@ninna-ui/feedback": "^0.7.0",
+    "@ninna-ui/forms": "^0.7.0",
+    "@ninna-ui/layout": "^0.7.0",
+    "@ninna-ui/overlays": "^0.7.0",
+    "@ninna-ui/primitives": "^0.7.0",
     "cheerio": "1.1.2",
     "class-variance-authority": "^0.7.1",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
+    "lucide-react": "^1.73.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-leaflet": "^5.0.0"
+    "react-leaflet": "^5.0.0",
+    "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
     "@eslint/js": "9.39.1",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/jest": "30.0.0",
     "@types/node": "24.10.1",
     "@types/react-leaflet": "^2.8.3",
@@ -45,6 +53,7 @@
     "globals": "16.5.0",
     "jest": "30.2.0",
     "prettier": "3.6.2",
+    "tailwindcss": "^4.3.5",
     "ts-jest": "29.4.5",
     "tsx": "4.20.6",
     "typescript": "5.9.3",

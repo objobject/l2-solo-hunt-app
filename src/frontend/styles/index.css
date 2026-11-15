@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@import "@ninna-ui/core/theme/presets/minimal.css";
+
+@variant dark (&:is(.dark *));
+
 #root {
     height: 100vh;
 }

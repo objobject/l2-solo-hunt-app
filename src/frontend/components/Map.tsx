@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { MapContainer, ImageOverlay, SVGOverlay, Marker, Polygon, Tooltip, Circle, useMap } from 'react-leaflet';
 import L, { LatLngBounds } from 'leaflet';
 import { createLayerComponent } from '@react-leaflet/core';
@@ -158,7 +159,9 @@ export const Map = () => {
     const [showTerritories, setShowTerritories] = useState<boolean>(true);
     const [selectedTerritories, setSelectedTerritories] = useState<Set<string>>(new Set());
     const [viewMode, setViewMode] = useState<'map' | 'satellite'>('map');
+    const [selectedMonsters, setSelectedMonsters] = useState<Set<number>>(new Set());
     const locationData = buildLocationData();
+    const searchParams = useSearchParams();
 
     const renderedMarkers = useMemo(() => {
         return locationData.filter(loc => {
@@ -190,26 +193,24 @@ export const Map = () => {
         });
     }, []);
 
-    // const renderedTerritories = useMemo(() => {
-    //     return LOCATION_DATA.map(loc => {
-    //         const isSelected = selectedTerritories.has(loc.id);
-    //
-    //         return {
-    //             size: loc.totalArea,
-    //             polygon: (
-    //                 <TerritoryPolygon
-    //                     loc={loc}
-    //                     isSelected={isSelected}
-    //                     onSelect={handleSelectTerritory}
-    //                 />
-    //             ),
-    //         }
-    //     });
-    // }, [LOCATION_DATA, selectedTerritories])
+    const sortedAndFilteredTerritories = useMemo(() => {
+        return [...LOCATION_DATA].filter(territory => {
+            return territory.monsters.some(mob => selectedMonsters.has(mob.id))
+        }).sort((a, b) => b.totalArea - a.totalArea);
+    }, [LOCATION_DATA, selectedMonsters]);
 
-    const sortedTerritories = useMemo(() => {
-        return [...LOCATION_DATA].sort((a, b) => b.totalArea - a.totalArea);
-    }, [LOCATION_DATA]);
+    const mobs = searchParams[0]?.get('monsters');
+    useEffect(() => {
+        if (mobs) {
+            setSelectedMonsters(mobs.split(',').reduce((set, id) => {
+                set.add(+id);
+
+                return set;
+            }, new Set()));
+        } else {
+            setSelectedMonsters(new Set())
+        }
+    }, [mobs]);
 
     return (
         <MapContainer
@@ -242,7 +243,7 @@ export const Map = () => {
                 )
             }
             {
-                showTerritories && sortedTerritories.map(loc => (
+                showTerritories && sortedAndFilteredTerritories.map(loc => (
                     <TerritoryPolygon
                         key={loc.id}
                         loc={loc}
@@ -296,12 +297,12 @@ const TerritoryPolygon = React.memo(function TerritoryPolygon({ loc, isSelected,
 function MapSelectionController({ locations, selectedTerritories, setSelectedTerritories, setViewMode }) {
     const map = useMap();
     const hasInitialZoomed = useRef(false);
+    const [params] = useSearchParams();
 
     // 1. Read URL on initial load & auto-zoom
     useEffect(() => {
         if (hasInitialZoomed.current || !locations.length) return;
 
-        const params = new URLSearchParams(window.location.search);
         const selectedParam = params.get('selected');
         const viewModeParam = params.get('viewMode');
 
@@ -318,7 +319,6 @@ function MapSelectionController({ locations, selectedTerritories, setSelectedTer
                 const bounds = L.latLngBounds(allPoints);
 
                 if (bounds.isValid()) {
-                    console.log(bounds)
                     map.fitBounds(bounds, {
                         padding: 0, // Adds breathing room around the edges
                         maxZoom: 2,       // Prevents zooming in too far on tiny polygons

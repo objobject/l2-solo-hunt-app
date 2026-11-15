@@ -1,5 +1,9 @@
 import {locationsByMonsterId, monstersById} from "../../generated/indexes";
+import { type MonsterDatum } from './monstersData';
 
+type MonsterWithSpawnData = MonsterDatum & {
+    spawnCount: number;
+}
 
 type Location = {
     id: number;
@@ -8,14 +12,7 @@ type Location = {
     densityScore: number;
     areaColor: string;
     totalSpawnCount: number;
-    monsters: {
-        id: number;
-        name: string;
-        level: number;
-        xp: number;
-        hp: number;
-        spawnCount: number;
-    }[];
+    monsters: MonsterWithSpawnData[];
 }
 
 /**
