@@ -165,11 +165,11 @@ export const Map = () => {
             return withinLevelRange;
         }).map(loc => {
             return loc.spawnLocations.map(spawn => (
-                <Marker position={[spawn.y, spawn.x]}>
+                <Circle center={[spawn.y, spawn.x]} radius={20} pathOptions={{ color: 'yellow' }}>
                     <Tooltip sticky>
                         <div>Monster: {loc.monster['name']}</div>
                     </Tooltip>
-                </Marker>
+                </Circle>
             ))
         })
     }, [locationData]);
