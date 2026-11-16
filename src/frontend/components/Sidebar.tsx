@@ -55,7 +55,7 @@ export function Sidebar() {
         Object.keys(selected).forEach(key => {
             if (selected[key].size === 0) {
                 setParams(prev => {
-                    pre.delete(key);
+                    prev.delete(key);
                     return prev;
                 });
             } else {
