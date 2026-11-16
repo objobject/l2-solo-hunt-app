@@ -194,9 +194,10 @@ export const Map = () => {
     }, []);
 
     const sortedAndFilteredTerritories = useMemo(() => {
-        return [...LOCATION_DATA].filter(territory => {
+        const filtered = selectedMonsters.size === 0 ? LOCATION_DATA : LOCATION_DATA.filter(territory => {
             return territory.monsters.some(mob => selectedMonsters.has(mob.id))
-        }).sort((a, b) => b.totalArea - a.totalArea);
+        });
+        return filtered.sort((a, b) => b.totalArea - a.totalArea);
     }, [LOCATION_DATA, selectedMonsters]);
 
     const mobs = searchParams[0]?.get('monsters');

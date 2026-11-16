@@ -54,7 +54,10 @@ export function Sidebar() {
 
         Object.keys(selected).forEach(key => {
             if (selected[key].size === 0) {
-                setParams({monsters: undefined});
+                setParams(prev => {
+                    pre.delete(key);
+                    return prev;
+                });
             } else {
                 setParams({monsters:Array.from(selected[key]).join(',') })
             }
